@@ -20,19 +20,23 @@ var codeTemplate = template.Must(template.New("code.tmpl").Funcs(sprig.TxtFuncMa
 
 const resourceListOptionName = "resource_list"
 
-// runKCL runs the KCL script in the kpt environment
-func runKCL(name, source string, resourceList *yaml.RNode) (string, error) {
+// runKCL runs the KCL script in the kpt environment and modify resourceList.
+func runKCL(name, source string, resourceList *yaml.RNode) (*yaml.RNode, error) {
 	resourceListOptionKCLValue, err := toKCLValueString(resourceList)
 	if err != nil {
-		return "", errors.Wrap(err)
+		return nil, errors.Wrap(err)
 	}
 	buffer := new(bytes.Buffer)
 	codeTemplate.Execute(buffer, &struct{ Source string }{source})
 	r, err := kclvm.RunFiles([]string{name}, kclvm.WithCode(buffer.String()), kclvm.WithOptions(fmt.Sprintf("%s=%s", resourceListOptionName, resourceListOptionKCLValue)))
 	if err != nil {
-		return "", errors.Wrap(err)
+		return nil, errors.Wrap(err)
 	}
-	return r.GetRawYamlResult(), nil
+	rn, err := yaml.Parse(r.GetRawYamlResult())
+	if err != nil {
+		return nil, errors.Wrap(err)
+	}
+	return rn, nil
 }
 
 // toKCLValueString converts YAML value to KCL value.

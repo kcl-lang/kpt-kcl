@@ -41,16 +41,12 @@ func (st *SimpleTransformer) Transform(nodes []*yaml.RNode) ([]*yaml.RNode, erro
 		return nil, errors.Wrap(err)
 	}
 
-	result, err := runKCL(st.Name, st.Source, in)
-	if err != nil {
-		return nil, errors.Wrap(err)
-	}
-	rn, err := yaml.Parse(result)
+	out, err := runKCL(st.Name, st.Source, in)
 
 	if err != nil {
 		return nil, errors.Wrap(err)
 	}
 
-	updatedNodes, _, err := UnwrapResources(rn)
+	updatedNodes, _, err := UnwrapResources(out)
 	return updatedNodes, err
 }
