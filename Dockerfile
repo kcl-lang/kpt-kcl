@@ -13,7 +13,7 @@ RUN GOOS=linux GOARCH=amd64 go build -o kpt-kcl-fn
 FROM kusionstack/kclvm
 
 WORKDIR /app
-
+USER root
 COPY --from=builder /app/kpt-kcl-fn .
 RUN mkdir -p /go/bin
 

@@ -160,8 +160,6 @@ In the example above, the script accesses the `toMatch` parameters using `option
 
 ## Integrate the Function into kpt
 
-### Build the KRM function as a Docker image
-
 ```bash
 export FN_CONTAINER_REGISTRY=<Your GCR or docker hub>
 export TAG=<Your KRM function tag>
@@ -184,14 +182,24 @@ There are 2 ways to run the function imperatively.
 + Run it using a ConfigMap that is generated from the command line arguments. The KCL script lives in `main.k` file.
   
 ```bash
-kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} -- source="$(cat main.k)" param1=value1 param2=value2
+sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-current-user -- source="$(cat main.k)" param1=value1 param2=value2
 ```
 
 + Or use the function config file.
 
 ```bash
-kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --fn-config fn-config.yaml
+sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-current-user --fn-config fn-config.yaml
 ```
+
+But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kcl-kpt:unstable` for testing.
+
+```bash
+sudo kpt fn eval ./testdata/resources.yaml -i docker.io/peefyxpf/kcl-kpt:unstable --as-current-user --fn-config ./testdata/fn-config.yaml
+```
+
+Then the Kubernetes resource file `resources.yaml` will be modified in place.
+
+> Note: you need add `sudo` and `--as-current-user` flags to ensure KCL has permission to write temp files in the container filesystem.
 
 ## Developing KCL
 
