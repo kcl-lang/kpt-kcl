@@ -160,6 +160,10 @@ In the example above, the script accesses the `toMatch` parameters using `option
 
 ## Integrate the Function into kpt
 
+### Build from Source
+
+Firstly, build the container image from the source.
+
 ```bash
 export FN_CONTAINER_REGISTRY=<Your GCR or docker hub>
 export TAG=<Your KRM function tag>
@@ -191,6 +195,8 @@ sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-c
 sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-current-user --fn-config fn-config.yaml
 ```
 
+### Using the Pre-release KCL KPT Image
+
 But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kcl-kpt:unstable` for testing.
 
 ```bash
@@ -201,11 +207,11 @@ Then the Kubernetes resource file `resources.yaml` will be modified in place.
 
 > Note: you need add `sudo` and `--as-current-user` flags to ensure KCL has permission to write temp files in the container filesystem.
 
-## Developing KCL
+## Guides for Developing KCL
 
 Here's what you can do in the KCL script:
 
-+ Read resources from `option("resource_list")`. The `option("resource_list")` complies with the [KRM Functions Specification](https://kpt.dev/book/05-developing-functions/01-functions-specification). You can read the input resources from `option("resource_list")["items"]` and the functionConfig from `option("resource_list")["functionConfig"]`.
++ Read resources from `option("resource_list")`. The `option("resource_list")` complies with the [KRM Functions Specification](https://kpt.dev/book/05-developing-functions/01-functions-specification). You can read the input resources from `option("resource_list")["items"]` and the `functionConfig` from `option("resource_list")["functionConfig"]`.
 + Return a KPM list for output resources.
 + Read the environment variables. e.g. `option("PATH")`.
 + Read the OpenAPI schema. e.g. `option("open_api")["definitions"]["io.k8s.api.apps.v1.Deployment"]`
