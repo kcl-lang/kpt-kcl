@@ -5,6 +5,9 @@ import (
 	"kusionstack.io/kpt-kcl-sdk/pkg/config"
 )
 
+// Process is a function that takes a pointer to a ResourceList and processes
+// it using the KCL function. It returns a boolean indicating whether the
+// processing was successful, and an error (if any).
 func Process(resourceList *fn.ResourceList) (bool, error) {
 	err := func() error {
 		r := &config.KCLRun{}

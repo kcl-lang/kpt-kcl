@@ -12,16 +12,28 @@ import (
 )
 
 const (
-	KCLRunGroup      = "fn.kpt.dev"
-	KCLRunVersion    = "v1alpha1"
+	// KCLRunGroup represents the API group for the KCLRun resource.
+	KCLRunGroup = "fn.kpt.dev"
+
+	// KCLRunVersion represents the API version for the KCLRun resource.
+	KCLRunVersion = "v1alpha1"
+
+	// KCLRunAPIVersion is a combination of the API group and version for the KCLRun resource.
 	KCLRunAPIVersion = KCLRunGroup + "/" + KCLRunVersion
-	KCLRunKind       = "KCLRun"
 
+	// KCLRunKind represents the kind of resource for the KCLRun resource.
+	KCLRunKind = "KCLRun"
+
+	// ConfigMapAPIVersion represents the API version for the ConfigMap resource.
 	ConfigMapAPIVersion = "v1"
-	ConfigMapKind       = "ConfigMap"
 
+	// ConfigMapKind represents the kind of resource for the ConfigMap resource.
+	ConfigMapKind = "ConfigMap"
+
+	// SourceKey is the key for the source field in a ConfigMap.
 	SourceKey = "source"
 
+	// defaultProgramName is the default name for the KCL function program.
 	defaultProgramName = "kcl-function-run"
 )
 
