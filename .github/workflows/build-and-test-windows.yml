@@ -21,5 +21,4 @@ jobs:
           python-version: '3.10' 
 
 
-      - run: python3 -m pip install -U sphinxcontrib-htmlhelp --user
-      - run: go test ./...
+      - run: go test -p 1 ./...
