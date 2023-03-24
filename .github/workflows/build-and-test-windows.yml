@@ -20,6 +20,4 @@ jobs:
         with:
           python-version: '3.10' 
 
-      - run: cmd /C python3 -c "import pkgutil;print(bool(pkgutil.find_loader('kclvm')))"
-      - run: cmd /C python3 -m pip install -U kclvm --user
       - run: go test ./...
