@@ -41,12 +41,12 @@ func runKCL(name, source string, resourceList *yaml.RNode) (*yaml.RNode, error) 
 
 // toKCLValueString converts YAML value to KCL value.
 func toKCLValueString(resourceList *yaml.RNode) (string, error) {
-	kclCode, err := resourceList.MarshalJSON()
+	jsonString, err := resourceList.MarshalJSON()
 	if err != nil {
 		return "", errors.Wrap(err)
 	}
 	// In KCL, `true`, `false` and `null` are denoted by `True`, `False` and `None`.
-	result := strings.Replace(string(kclCode), ": true", ": True", -1)
+	result := strings.Replace(string(jsonString), ": true", ": True", -1)
 	result = strings.Replace(result, ": false", ": False", -1)
 	result = strings.Replace(result, ": null", ": None", -1)
 	return result, nil
