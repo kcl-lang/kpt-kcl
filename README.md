@@ -1,16 +1,20 @@
 # kpt-kcl-sdk
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/KusionStack/kpt-kcl-sdk)](https://goreportcard.com/report/github.com/KusionStack/kpt-kcl-sdk)
+[![GoDoc](https://godoc.org/github.com/KusionStack/kpt-kcl-sdk?status.svg)](https://godoc.org/github.com/KusionStack/kpt-kcl-sdk)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/KusionStack/kpt-kcl-sdk/blob/main/LICENSE)
+
+[KCL](https://github.com/KusionStack/KCLVM) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
+
+[kpt](https://github.com/GoogleContainerTools/kpt) is a package-centric toolchain that enables a WYSIWYG configuration authoring, automation, and delivery experience, which simplifies managing Kubernetes platforms and KRM-driven infrastructure.
+
 The KPT KCL function SDK contains a KCL interpreter to run a KCL script to mutate or validate resources.
 
-The KCL script can be used to:
+The KCL programming language can be used to:
 
 + Add annotations on the basis of a condition.
 + Inject a sidecar container in all KRM resources that contain a PodTemplate.
 + Validate all KRM resources using KCL schema.
-
-## Introduction
-
-[KCL](https://github.com/KusionStack/KCLVM) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/). [kpt](https://github.com/GoogleContainerTools/kpt) is a package-centric toolchain that enables a WYSIWYG configuration authoring, automation, and delivery experience, which simplifies managing Kubernetes platforms and KRM-driven infrastructure.
 
 ## Prerequisites
 
