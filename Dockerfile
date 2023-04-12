@@ -15,6 +15,7 @@ FROM kusionstack/kclvm
 WORKDIR /app
 USER root
 COPY --from=builder /app/kpt-kcl-fn .
-RUN mkdir -p /go/bin
+RUN mkdir -p /root/go/bin
+RUN echo "latest" > /root/go/bin/kclvm.version
 
 CMD ["/app/kpt-kcl-fn"]
