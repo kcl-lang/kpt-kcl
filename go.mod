@@ -5,10 +5,11 @@ go 1.18
 require (
 	github.com/GoogleContainerTools/kpt-functions-sdk/go/fn v0.0.0-20230302070146-e8e9cb3c3ae2
 	github.com/Masterminds/sprig/v3 v3.2.3
+	github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d
 	github.com/stretchr/testify v1.8.1
 	k8s.io/api v0.23.4
 	k8s.io/apimachinery v0.24.0
-	kusionstack.io/kclvm-go v0.4.6-0.20230324065243-f2813c3b3e86
+	kusionstack.io/kclvm-go v0.4.6
 	sigs.k8s.io/kustomize/kyaml v0.14.1
 )
 
@@ -44,6 +45,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/monochromegane/go-gitignore v0.0.0-20200626010858-205db1a8cc00 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/powerman/rpc-codec v1.2.2 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/xlab/treeprint v1.1.0 // indirect
@@ -60,8 +62,7 @@ require (
 	k8s.io/klog/v2 v2.80.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20230109183929-3758b55a6596 // indirect
 	k8s.io/utils v0.0.0-20221107191617-1a15be271d1d // indirect
-	kusionstack.io/kcl-plugin v0.4.4 // indirect
-	kusionstack.io/kclvm-artifact-go v0.4.6-0.20230324062827-82a4700500c8 // indirect
+	kusionstack.io/kclvm-artifact-go v0.4.6 // indirect
 	sigs.k8s.io/json v0.0.0-20220713155537-f223a00ba0e2 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 )

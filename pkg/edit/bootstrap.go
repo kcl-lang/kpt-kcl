@@ -4,10 +4,14 @@ import (
 	"bytes"
 	_ "embed"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 
 	"github.com/Masterminds/sprig/v3"
+	"github.com/acarl005/stripansi"
 	"kusionstack.io/kclvm-go"
 	"sigs.k8s.io/kustomize/kyaml/errors"
 	"sigs.k8s.io/kustomize/kyaml/yaml"
@@ -28,10 +32,24 @@ func runKCL(name, source string, resourceList *yaml.RNode) (*yaml.RNode, error) 
 	}
 	buffer := new(bytes.Buffer)
 	codeTemplate.Execute(buffer, &struct{ Source string }{source})
-	r, err := kclvm.RunFiles([]string{name}, kclvm.WithCode(buffer.String()), kclvm.WithOptions(fmt.Sprintf("%s=%s", resourceListOptionName, resourceListOptionKCLValue)))
+	// Create temp files.
+	tmpDir, err := ioutil.TempDir("", "sandbox")
 	if err != nil {
-		return nil, errors.Wrap(err)
+		return nil, fmt.Errorf("error creating temp directory: %v", err)
 	}
+	defer os.RemoveAll(tmpDir)
+	// Write kcl code in the temp file.
+	kFile := filepath.Join(tmpDir, "prog.k")
+	err = os.WriteFile(kFile, buffer.Bytes(), 0666)
+	if err != nil {
+		return nil, err
+	}
+
+	r, err := kclvm.Run(kFile, kclvm.WithOptions(fmt.Sprintf("%s=%s", resourceListOptionName, resourceListOptionKCLValue)))
+	if err != nil {
+		return nil, errors.Wrap(stripansi.Strip(err.Error()))
+	}
+
 	rn, err := yaml.Parse(r.GetRawYamlResult())
 	if err != nil {
 		return nil, errors.Wrap(err)
