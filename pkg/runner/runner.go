@@ -2,7 +2,7 @@ package runner
 
 import (
 	"github.com/GoogleContainerTools/kpt-functions-sdk/go/fn"
-	"kusionstack.io/kpt-kcl-sdk/pkg/process"
+	"github.com/KusionStack/krm-kcl/pkg/process"
 )
 
 /// Run evaluates the ResourceList from STDIN to STDOUT
