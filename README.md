@@ -136,28 +136,29 @@ In the example above, the script accesses the replicas parameters using `option(
 To use a KCLRun as the functionConfig, the KCL source must be specified in the source field. Additional parameters can be specified in the params field. The params field supports any complex data structure as long as it can be represented in YAML.
 
 ```yaml
-apiVersion: fn.kpt.dev/v1alpha1
+apiVersion: krm.kcl.dev/v1alpha1
 kind: KCLRun
 metadata:
   name: conditionally-add-annotations
-params:
-  toMatch:
-    config.kubernetes.io/local-config: "true"
-  toAdd:
-    configmanagement.gke.io/managed: disabled
-source: |
-  resource = option("resource_list")
-  items = resource.items
-  params = resource.functionConfig.params
-  toMatch = params.toMatch
-  toAdd = params.toAdd
-  [item | {
-     # If all annotations are matched, patch more annotations
-     if all key, value in toMatch {
-        item.metadata.annotations[key] == value
-     }:
-         metadata.annotations: {**params.toAdd}
-  } for item in items]
+spec:
+  params:
+    toMatch:
+      config.kubernetes.io/local-config: "true"
+    toAdd:
+      configmanagement.gke.io/managed: disabled
+  source: |
+    resource = option("resource_list")
+    items = resource.items
+    params = resource.functionConfig.params
+    toMatch = params.toMatch
+    toAdd = params.toAdd
+    [item | {
+       # If all annotations are matched, patch more annotations
+       if all key, value in toMatch {
+          item.metadata.annotations[key] == value
+       }:
+           metadata.annotations: {**params.toAdd}
+    } for item in items]
 ```
 
 In the example above, the script accesses the `toMatch` parameters using `option("resource_list").functionConfig.params.toMatch`.
@@ -201,10 +202,10 @@ sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-c
 
 ### Using the Pre-release KCL KPT Image
 
-But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kcl-kpt:unstable` for testing.
+But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kpt-kcl:v0.1.0` for testing.
 
 ```bash
-sudo kpt fn eval ./testdata/resources.yaml -i docker.io/peefyxpf/kcl-kpt:unstable --as-current-user --fn-config ./testdata/fn-config.yaml
+sudo kpt fn eval ./testdata/resources.yaml -i docker.io/peefyxpf/kpt-kcl:v0.1.0 --as-current-user --fn-config ./testdata/fn-config.yaml
 ```
 
 Then the Kubernetes resource file `resources.yaml` will be modified in place.

@@ -1,3 +1,5 @@
+VERSION:=$(shell cat VERSION)
+
 default: run
 
 run:
@@ -8,3 +10,9 @@ test:
 
 fmt:
 	go fmt ./...		
+
+image:
+
+image:
+	docker build . -t docker.io/peefyxpf/kpt-kcl:$(VERSION)
+	docker push docker.io/peefyxpf/kpt-kcl:$(VERSION)
