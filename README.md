@@ -149,7 +149,7 @@ spec:
   source: |
     resource = option("resource_list")
     items = resource.items
-    params = resource.functionConfig.params
+    params = resource.functionConfig.spec.params
     toMatch = params.toMatch
     toAdd = params.toAdd
     [item | {
@@ -161,7 +161,7 @@ spec:
     } for item in items]
 ```
 
-In the example above, the script accesses the `toMatch` parameters using `option("resource_list").functionConfig.params.toMatch`.
+In the example above, the script accesses the `toMatch` parameters using `option("resource_list").functionConfig.spec.params.toMatch`.
 
 ## Integrate the Function into kpt
 
