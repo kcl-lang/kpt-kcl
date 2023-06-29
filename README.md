@@ -18,9 +18,9 @@ The KCL programming language can be used to:
 
 ## Prerequisites
 
-+ Install kpt
-+ Install Docker
-+ Golang (at least version 1.18)
++ Install [kpt](https://github.com/GoogleContainerTools/kpt)
++ Install [Docker](https://www.docker.com/)
++ Golang (at least version 1.19)
 
 ## Test the KRM function
 
@@ -202,10 +202,10 @@ sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-c
 
 ### Using the Pre-release KCL KPT Image
 
-But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kpt-kcl:v0.1.1` for testing.
+But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kpt-kcl:v0.1.2` for testing.
 
 ```bash
-sudo kpt fn eval ./testdata/resources.yaml -i docker.io/peefyxpf/kpt-kcl:v0.1.1 --as-current-user --fn-config ./testdata/fn-config.yaml
+sudo kpt fn eval ./testdata/resources.yaml -i docker.io/peefyxpf/kpt-kcl:v0.1.2 --fn-config ./testdata/fn-config.yaml --as-current-user 
 ```
 
 Then the Kubernetes resource file `resources.yaml` will be modified in place.
