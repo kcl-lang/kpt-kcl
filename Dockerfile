@@ -1,4 +1,4 @@
-FROM golang:1.18 as builder
+FROM golang:1.19 as builder
 
 ENV GO111MODULE=on \
     GOPROXY=https://goproxy.cn,direct
@@ -17,5 +17,6 @@ USER root
 COPY --from=builder /app/kpt-kcl-fn .
 RUN mkdir -p /root/go/bin
 RUN echo "latest" > /root/go/bin/kclvm.version
+RUN rm -rf /kclvm
 
 CMD ["/app/kpt-kcl-fn"]

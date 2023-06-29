@@ -1,1 +1,1 @@
-[item | {if item.kind == "Deployment": spec.replicas = option("resource_list").functionConfig.data.replicas} for item in option("resource_list").items]
+[item | {if item.kind == "Deployment": spec.replicas = option("resource_list").functionConfig.spec.params.replicas} for item in option("resource_list").items]

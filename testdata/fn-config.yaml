@@ -1,7 +1,7 @@
 apiVersion: krm.kcl.dev/v1alpha1
 kind: KCLRun
 metadata:
-  name: conditionally-add-annotations
+  name: set-replicas
 spec:
   params:
     replicas: 5
