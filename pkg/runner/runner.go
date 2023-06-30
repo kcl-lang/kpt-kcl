@@ -5,7 +5,7 @@ import (
 	"kcl-lang.io/krm-kcl/pkg/process"
 )
 
-// / Run evaluates the ResourceList from STDIN to STDOUT
+// Run evaluates the ResourceList from STDIN to STDOUT
 func Run() error {
 	return fn.AsMain(fn.ResourceListProcessorFunc(process.Process))
 }
