@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"kusionstack.io/kpt-kcl-sdk/pkg/runner"
+	"kcl-lang.io/kpt-kcl/pkg/runner"
 )
 
 func main() {

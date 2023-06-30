@@ -1,10 +1,10 @@
-module kusionstack.io/kpt-kcl-sdk
+module kcl-lang.io/kpt-kcl
 
 go 1.19
 
 require (
 	github.com/GoogleContainerTools/kpt-functions-sdk/go/fn v0.0.0-20230427202446-3255accc518d
-	github.com/KusionStack/krm-kcl v0.1.1
+	kcl-lang.io/krm-kcl v0.1.2
 )
 
 require (

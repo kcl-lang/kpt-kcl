@@ -1,8 +1,8 @@
 # kpt-kcl-sdk
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/KusionStack/kpt-kcl-sdk)](https://goreportcard.com/report/github.com/KusionStack/kpt-kcl-sdk)
-[![GoDoc](https://godoc.org/github.com/KusionStack/kpt-kcl-sdk?status.svg)](https://godoc.org/github.com/KusionStack/kpt-kcl-sdk)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/KusionStack/kpt-kcl-sdk/blob/main/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kcl-lang/kpt-kcl)](https://goreportcard.com/report/github.com/kcl-lang/kpt-kcl)
+[![GoDoc](https://godoc.org/github.com/kcl-lang/kpt-kcl?status.svg)](https://godoc.org/github.com/kcl-lang/kpt-kcl)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/kcl-lang/kpt-kcl/blob/main/LICENSE)
 
 [KCL](https://github.com/KusionStack/KCLVM) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
 
@@ -224,7 +224,7 @@ Here's what you can do in the KCL script:
 
 ## Examples
 
-See [here](https://github.com/KusionStack/krm-kcl/tree/main/examples) for more examples.
+See [here](https://kcl-lang.io/krm-kcl/tree/main/examples) for more examples.
 
 ## Library
 
