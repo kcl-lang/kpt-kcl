@@ -202,10 +202,10 @@ sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-c
 
 ### Using the Pre-release KCL KPT Image
 
-But for example, you can use the unstable kcl-kpt image `docker.io/peefyxpf/kpt-kcl:v0.1.2` for testing.
+But for example, you can use the unstable kcl-kpt image `docker.io/kcllang/kpt-kcl:v0.1.2` for testing.
 
 ```bash
-sudo kpt fn eval ./testdata/resources.yaml -i docker.io/peefyxpf/kpt-kcl:v0.1.2 --fn-config ./testdata/fn-config.yaml --as-current-user 
+sudo kpt fn eval ./testdata/resources.yaml -i docker.io/kcllang/kpt-kcl:v0.1.2 --fn-config ./testdata/fn-config.yaml --as-current-user 
 ```
 
 Then the Kubernetes resource file `resources.yaml` will be modified in place.

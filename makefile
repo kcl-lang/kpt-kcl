@@ -14,5 +14,5 @@ fmt:
 image:
 
 image:
-	docker build . -t docker.io/peefyxpf/kpt-kcl:$(VERSION)
-	docker push docker.io/peefyxpf/kpt-kcl:$(VERSION)
+	docker build . -t docker.io/kcllang/kpt-kcl:$(VERSION)
+	docker push docker.io/kcllang/kpt-kcl:$(VERSION)

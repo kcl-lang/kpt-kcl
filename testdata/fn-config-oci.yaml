@@ -5,4 +5,4 @@ metadata:
 spec:
   params:
     replicas: 5
-  source: oci://docker.io/peefyxpf/set-replicas
+  source: oci://docker.io/kcllang/set-replicas
