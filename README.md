@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/kcl-lang/kpt-kcl?status.svg)](https://godoc.org/github.com/kcl-lang/kpt-kcl)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/kcl-lang/kpt-kcl/blob/main/LICENSE)
 
-[KCL](https://github.com/KusionStack/KCLVM) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
+[KCL](https://github.com/kcl-lang/kcl) is a constraint-based record & functional domain language. Full documents of KCL can be found [here](https://kcl-lang.io/).
 
 [kpt](https://github.com/GoogleContainerTools/kpt) is a package-centric toolchain that enables a WYSIWYG configuration authoring, automation, and delivery experience, which simplifies managing Kubernetes platforms and KRM-driven infrastructure.
 
@@ -191,26 +191,24 @@ There are 2 ways to run the function imperatively.
 + Run it using a ConfigMap that is generated from the command line arguments. The KCL script lives in `main.k` file.
   
 ```bash
-sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-current-user -- source="$(cat main.k)" param1=value1 param2=value2
+kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} -- source="$(cat main.k)" param1=value1 param2=value2
 ```
 
 + Or use the function config file.
 
 ```bash
-sudo kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --as-current-user --fn-config fn-config.yaml
+kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --fn-config fn-config.yaml
 ```
 
 ### Using the Pre-release KCL KPT Image
 
-But for example, you can use the unstable kcl-kpt image `docker.io/kcllang/kpt-kcl:v0.1.2` for testing.
+But for example, you can use the unstable kcl-kpt image `docker.io/kcllang/kpt-kcl:v0.2.0` for testing.
 
 ```bash
-sudo kpt fn eval ./testdata/resources.yaml -i docker.io/kcllang/kpt-kcl:v0.1.2 --fn-config ./testdata/fn-config.yaml --as-current-user 
+kpt fn eval ./testdata/resources.yaml -i docker.io/kcllang/kpt-kcl:v0.2.0 --fn-config ./testdata/fn-config.yaml
 ```
 
 Then the Kubernetes resource file `resources.yaml` will be modified in place.
-
-> Note: you need add `sudo` and `--as-current-user` flags to ensure KCL has permission to write temp files in the container filesystem.
 
 ## Guides for Developing KCL
 

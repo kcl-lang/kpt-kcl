@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/GoogleContainerTools/kpt-functions-sdk/go/fn v0.0.0-20230427202446-3255accc518d
-	kcl-lang.io/krm-kcl v0.2.2
+	kcl-lang.io/krm-kcl v0.3.1
 )
 
 require (
@@ -114,9 +114,9 @@ require (
 	k8s.io/klog/v2 v2.90.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20230601164746-7562a1006961 // indirect
 	k8s.io/utils v0.0.0-20230505201702-9f6742963106 // indirect
-	kcl-lang.io/kcl-artifact-go v0.5.0 // indirect
-	kcl-lang.io/kcl-go v0.5.0 // indirect
-	kcl-lang.io/kpm v0.3.0 // indirect
+	kcl-lang.io/kcl-artifact-go v0.5.1 // indirect
+	kcl-lang.io/kcl-go v0.5.2-alpha.1 // indirect
+	kcl-lang.io/kpm v0.3.2 // indirect
 	oras.land/oras-go v1.2.3 // indirect
 	oras.land/oras-go/v2 v2.0.2 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
