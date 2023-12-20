@@ -16,6 +16,4 @@ WORKDIR /app
 
 COPY --from=builder /app/kpt-kcl-fn .
 
-ENV KCL_GO_DISABLE_ARTIFACT=on
-
 CMD ["/app/kpt-kcl-fn"]
