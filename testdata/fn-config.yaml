@@ -4,6 +4,6 @@ metadata:
   name: set-replicas
 spec:
   params:
-    replicas: 5
+    replicas: 6
   source: |
-    [item | {if item.kind == "Deployment": spec.replicas = option("resource_list").functionConfig.spec.params.replicas} for item in option("resource_list").items]
+    [item | {if item.kind == "Deployment": spec.replicas = option("params").replicas} for item in option("items") or []]
