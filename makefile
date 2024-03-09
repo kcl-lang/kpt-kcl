@@ -12,7 +12,5 @@ fmt:
 	go fmt ./...		
 
 image:
-
-image:
 	docker build . -t docker.io/kcllang/kpt-kcl:$(VERSION)
 	docker push docker.io/kcllang/kpt-kcl:$(VERSION)
