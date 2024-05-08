@@ -83,57 +83,27 @@ items:
     selector:
       app: MyApp
 functionConfig:
-  apiVersion: v1
-  kind: ConfigMap
+  apiVersion: krm.kcl.dev/v1alpha1
+  kind: KCLRun
   metadata:
-    name: set-replicas
-    annotations:
-      config.kubernetes.io/index: '0'
-      config.kubernetes.io/path: 'fn-config.yaml'
-      internal.config.kubernetes.io/index: '0'
-      internal.config.kubernetes.io/path: 'fn-config.yaml'
-      internal.config.kubernetes.io/seqindent: 'compact'
-  data:
-    replicas: "5"
-    source: |
-      resources = option("resource_list")
-      setReplicas = lambda items, replicas {
-         [item | {if item.kind == "Deployment": spec.replicas = replicas} for item in items]
-      }
-      setReplicas(resources.items or [], resources.functionConfig.data.replicas)
+    name: conditionally-add-annotations
+  spec:
+    params:
+      replicas: "5"
+      source: |
+        params = option("params")
+        replicas = params.replicas
+        setReplicas = lambda items, replicas {
+           [item | {if item.kind == "Deployment": spec.replicas = replicas} for item in items]
+        }
+        items = setReplicas(option("items"), replicas)
 ```
 
 Thus, the `spec.replicas` of `Deployment` in the `resource_list.yaml` is changed to `5` from `2`.
 
 ## FunctionConfig
 
-There are 2 kinds of `functionConfig` supported by this function:
-
-+ ConfigMap
-+ A custom resource of kind `KCLRun`
-
-To use a ConfigMap as the functionConfig, the KCL script source must be specified in the data.source field. Additional parameters can be specified in the data field.
-
-Here's an example:
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: set-replicas
-data:
-  replicas: "5"
-  source: |
-    resources = option("resource_list")
-    setReplicas = lambda items, replicas {
-       [item | {if item.kind == "Deployment": spec.replicas = replicas} for item in items]
-    }
-    setReplicas(resources.items or [], resources.functionConfig.data.replicas)
-```
-
-In the example above, the script accesses the replicas parameters using `option("resource_list").functionConfig.data.replicas`.
-
-To use a KCLRun as the functionConfig, the KCL source must be specified in the source field. Additional parameters can be specified in the params field. The params field supports any complex data structure as long as it can be represented in YAML.
+The KCL source must be specified in the source field. Additional parameters can be specified in the params field. The params field supports any complex data structure as long as it can be represented in YAML.
 
 ```yaml
 apiVersion: krm.kcl.dev/v1alpha1
@@ -148,20 +118,19 @@ spec:
       configmanagement.gke.io/managed: disabled
   source: |
     resource = option("resource_list")
-    items = resource.items
     params = resource.functionConfig.spec.params
     toMatch = params.toMatch
     toAdd = params.toAdd
-    [item | {
+    items = [item | {
        # If all annotations are matched, patch more annotations
        if all key, value in toMatch {
           item.metadata.annotations[key] == value
        }:
            metadata.annotations: toAdd
-    } for item in items]
+    } for item in resource.items]
 ```
 
-In the example above, the script accesses the `toMatch` parameters using `option("resource_list").functionConfig.spec.params.toMatch`.
+In the example above, the script accesses the `toMatch` parameters using `option("params").toMatch`.
 
 ## Integrate the Function into kpt
 
@@ -175,10 +144,7 @@ export TAG=<Your KRM function tag>
 docker build . -t ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG}
 ```
 
-There are 2 ways to run the function declaratively.
-
-+ Have your Kptfile with the inline ConfigMap as the functionConfig.
-+ Have your Kptfile pointing to a functionConfig file that contains either a ConfigMap or a KCLRun.
+Have your Kptfile pointing to a functionConfig file that contains either a KCLRun.
 
 After that, you can render it in the folder that contains KRM with:
 
@@ -186,15 +152,7 @@ After that, you can render it in the folder that contains KRM with:
 kpt fn render
 ```
 
-There are 2 ways to run the function imperatively.
-
-+ Run it using a ConfigMap that is generated from the command line arguments. The KCL script lives in `main.k` file.
-  
-```bash
-kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} -- source="$(cat main.k)" param1=value1 param2=value2
-```
-
-+ Or use the function config file.
+Or use the function config file.
 
 ```bash
 kpt fn eval --image ${FN_CONTAINER_REGISTRY}/${FUNCTION_NAME}:${TAG} --fn-config fn-config.yaml
@@ -214,11 +172,10 @@ Then the Kubernetes resource file `resources.yaml` will be modified in place.
 
 Here's what you can do in the KCL script:
 
-+ Read resources from `option("resource_list")`. The `option("resource_list")` complies with the [KRM Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/master/cmd/config/docs/api-conventions/functions-spec.md#krm-functions-specification). You can read the input resources from `option("resource_list")["items"]` and the `functionConfig` from `option("resource_list")["functionConfig"]`.
++ Read resources from `option("resource_list")`. The `option("resource_list")` complies with the [KRM Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/master/cmd/config/docs/api-conventions/functions-spec.md#krm-functions-specification). You can read the input resources from `option("items")`.
 + Return a KPM list for output resources.
 + Return an error using `assert {condition}, {error_message}`.
-+ Read the environment variables. e.g. `option("PATH")` (Not yet implemented).
-+ Read the OpenAPI schema. e.g. `option("open_api")["definitions"]["io.k8s.api.apps.v1.Deployment"]` (Not yet implemented).
++ Read the environment variables. e.g. `option("PATH")`.
 
 ## Examples
 

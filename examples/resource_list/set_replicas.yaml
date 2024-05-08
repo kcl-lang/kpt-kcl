@@ -7,15 +7,18 @@ items:
     replicas: '2'
 - kind: Service
 functionConfig:
-  apiVersion: v1
-  kind: ConfigMap
+  apiVersion: krm.kcl.dev/v1alpha1
+  kind: KCLRun
   metadata:
-    name: set-replicas
-  data:
-    replicas: '5'
-    source: |
-      resources = option("resource_list")
-      setReplicas = lambda items, replicas {
-         [item | {if item.kind == "Deployment": spec.replicas = replicas} for item in items]
-      }
-      setReplicas(resources.items or [], resources.functionConfig.data.replicas)
+    name: conditionally-add-annotations
+  spec:
+    params:
+      replicas: "5"
+      source: |
+        params = option("params")
+        items = option("items")
+        replicas = params.replicas
+        setReplicas = lambda items, replicas {
+           [item | {if item.kind == "Deployment": spec.replicas = replicas} for item in items]
+        }
+        items = setReplicas(items, replicas)
