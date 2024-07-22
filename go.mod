@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/GoogleContainerTools/kpt-functions-sdk/go/fn v0.0.0-20230427202446-3255accc518d
 	kcl-lang.io/krm-kcl v0.9.1
-	sigs.k8s.io/kustomize/kyaml v0.17.1
+	sigs.k8s.io/kustomize/kyaml v0.17.2
 )
 
 require (
