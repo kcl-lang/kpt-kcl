@@ -20,7 +20,7 @@ The KCL programming language can be used to:
 
 + Install [kpt](https://github.com/GoogleContainerTools/kpt)
 + Install [Docker](https://www.docker.com/)
-+ Golang (at least version 1.22)
++ Golang (at least version 1.23)
 
 ## Test the KRM function
 
