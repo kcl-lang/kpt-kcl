@@ -5,7 +5,7 @@ go 1.23
 require (
 	github.com/GoogleContainerTools/kpt-functions-sdk/go/fn v0.0.0-20230427202446-3255accc518d
 	kcl-lang.io/krm-kcl v0.10.4
-	sigs.k8s.io/kustomize/kyaml v0.18.0
+	sigs.k8s.io/kustomize/kyaml v0.18.1
 )
 
 require (
