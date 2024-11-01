@@ -7,8 +7,8 @@ WORKDIR /app
 
 COPY . .
 
+ENV CGO_ENABLED=0
 RUN GOOS=linux GOARCH=amd64 go build -o kpt-kcl-fn
-
 
 FROM kcllang/kcl
 
