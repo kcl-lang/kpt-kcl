@@ -6,7 +6,7 @@ toolchain go1.26.6
 
 require (
 	github.com/GoogleContainerTools/kpt-functions-sdk/go/fn v0.0.0-20230427202446-3255accc518d
-	kcl-lang.io/krm-kcl v0.12.9
+	kcl-lang.io/krm-kcl v0.12.10
 	sigs.k8s.io/kustomize/kyaml v0.21.1
 )
 
