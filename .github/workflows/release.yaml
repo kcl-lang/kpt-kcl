@@ -26,7 +26,14 @@ jobs:
           version: v0.11.2
           install: true
 
-      # <--- Login, build and push image to Docker Hub --->
+      # <--- Login to both registries, then build and push --->
+      - name: Login to ghcr.io
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DEPLOY_ACCESS_NAME }}
+          password: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
+
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
@@ -37,7 +44,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: kcllang/kpt-kcl
+          images: |
+            kcllang/kpt-kcl
+            ghcr.io/kcl-lang/kpt-kcl
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
